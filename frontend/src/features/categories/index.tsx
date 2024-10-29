@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { Box, Card, Text } from "@radix-ui/themes";
+import { Table, Card, Flex, Text } from "@radix-ui/themes";
 import { getCategories } from "@/services/category.service";
 import { TypeCategoriesAll } from "@/types/response/response.category";
+import DialogAdd from "./components/dialogAddCategory";
 
 export default function CategoriesFeature() {
     const [categories, setCategories] = useState<TypeCategoriesAll[]>([]);
@@ -14,22 +15,37 @@ export default function CategoriesFeature() {
     useEffect(() => {
         getCategoriesData();
     }, []);
-
-
     return (
         <div className="container w-full pt-2">
-            <Box maxWidth="350px">
-                <Card asChild>
-                    <a href="#">
-                        <Text as="div" size="2" weight="bold">
-                            Quick start
-                        </Text>
-                        <Text as="div" color="gray" size="2">
-                            Start building your next project in minutes
-                        </Text>
-                    </a>
-                </Card>
-            </Box>
+            <Card variant="surface" className="w-600 m-auto">
+                <Flex className="w-full" direction="row" gap="2">
+                    <Text as="div" size="2" weight="bold">Categories</Text>
+                    <DialogAdd getCategoriesData={getCategoriesData} />
+                </Flex>
+
+                <Table.Root>
+                    <Table.Header>
+                        <Table.Row>
+                            <Table.ColumnHeaderCell>Id</Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell>Category Name</Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell>Edit</Table.ColumnHeaderCell>
+                            <Table.ColumnHeaderCell>Delete</Table.ColumnHeaderCell>
+                        </Table.Row>
+                    </Table.Header>
+
+                    <Table.Body>
+                        {categories && categories.map((category: TypeCategoriesAll) => (
+                            <Table.Row key={category.id}>
+                                <Table.RowHeaderCell>{category.id}</Table.RowHeaderCell>
+                                <Table.Cell>{category.category_name}</Table.Cell>
+                                <Table.Cell>edit</Table.Cell>
+                                <Table.Cell>delete</Table.Cell>
+                            </Table.Row>
+                        ))}
+                        
+                    </Table.Body>
+                </Table.Root>
+            </Card>
         </div>
     );
 }
