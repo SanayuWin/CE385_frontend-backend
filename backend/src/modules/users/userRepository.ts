@@ -44,7 +44,7 @@ export const userRepository = {
 
         const setPayload: any = {
             username: usernameTrim,
-            password: passwordTrim,
+            password: hashPassword,
             role: role,
         };
 
