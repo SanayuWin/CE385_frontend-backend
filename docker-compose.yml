@@ -6,7 +6,7 @@ services:
   #     context: ./frontend
   #     dockerfile: Dockerfile
   #   ports:
-  #     - "3000:80"  
+  #     - "5173:80"  
   #   environment:
   #     NODE_ENV: development
   #     REACT_APP_BACKEND_SERVER: http://localhost:8087/api/
